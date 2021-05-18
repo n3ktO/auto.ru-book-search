@@ -1,4 +1,4 @@
-import StateType from "../types/StateType";
+import StateType from '../types/StateType';
 
 const initialState: StateType = {
   query: '',

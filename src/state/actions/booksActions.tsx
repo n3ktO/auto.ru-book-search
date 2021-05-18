@@ -1,4 +1,11 @@
-const setBooks = (books: any[]) => ({ type: 'SET_BOOKS', books });
-const addBooks = (books: any[]) => ({ type: 'ADD_BOOKS', books });
+const setBooks = (books: any[]) => ({
+  type: 'books/set',
+  books
+});
+
+const addBooks = (books: any[]) => ({
+  type: 'books/add',
+  books
+});
 
 export { setBooks, addBooks };

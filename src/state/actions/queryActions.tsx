@@ -1,3 +1,6 @@
-const setQuery = (query: string) => ({ type: 'SET_QUERY', query });
+const setQuery = (query: string) => ({
+  type: 'query/set',
+  query
+});
 
 export { setQuery };

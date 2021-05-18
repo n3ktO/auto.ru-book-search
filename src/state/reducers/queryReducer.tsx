@@ -1,15 +1,15 @@
-import initialState from "../initialState";
+import initialState from '../initialState';
+
+type QueryReducerType =
+  | { type: 'query/set'; query: string };
 
 export default function queryReducer(
   state: string = initialState.query,
-  { type, query }: { type: string, query: string }
+  { type, query }: QueryReducerType
 ) {
-  switch (type) {
-    case "SET_QUERY": {
-      return query;
-    }
-    default: {
-      return state;
-    }
+  if (type === 'query/set') {
+    return query;
   }
+
+  return state;
 }

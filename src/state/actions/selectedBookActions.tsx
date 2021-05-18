@@ -1,5 +1,5 @@
 const setSelectedBook = (selectedBook: string) => ({
-  type: 'SET_SELECTED_BOOK',
+  type: 'selectedBook/set',
   selectedBook
 });
 

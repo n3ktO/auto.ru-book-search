@@ -1,5 +1,5 @@
 const setLoading = (loading: AbortController) => ({
-  type: 'SET_LOADING',
+  type: 'loading/set',
   loading
 });
 

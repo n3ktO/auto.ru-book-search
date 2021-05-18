@@ -1,15 +1,15 @@
-import initialState from "../initialState";
+import initialState from '../initialState';
+
+type SelectedBookReducerType =
+  | { type: 'selectedBook/set'; selectedBook: string };
 
 export default function selectedBookReducer(
   state: string = initialState.selectedBook,
-  { type, selectedBook }: { type: string, selectedBook: string }
+  { type, selectedBook }: SelectedBookReducerType
 ) {
-  switch (type) {
-    case "SET_SELECTED_BOOK": {
-      return selectedBook;
-    }
-    default: {
-      return state;
-    }
+  if (type === 'selectedBook/set') {
+    return selectedBook;
   }
+
+  return state;
 }

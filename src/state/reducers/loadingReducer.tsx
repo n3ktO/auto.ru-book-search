@@ -1,15 +1,15 @@
-import initialState from "../initialState";
+import initialState from '../initialState';
 
+type LoadingReducerType =
+  | { type: 'loading/set'; loading: AbortController };
+  
 export default function loadingReducer(
   state: AbortController = initialState.loading,
-  { type, loading }: { type: string, loading: AbortController }
+  { type, loading }: LoadingReducerType
 ) {
-  switch (type) {
-    case "SET_LOADING": {
-      return loading;
-    }
-    default: {
-      return state;
-    }
+  if (type === 'loading/set') {
+    return loading;
   }
+
+  return state;
 }

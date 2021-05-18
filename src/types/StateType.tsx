@@ -1,8 +1,8 @@
 type StateType = {
   query: string;
   books: any[];
-  loading: AbortController;
-  selectedBook: string;
+  loading: AbortController | null;
+  selectedBook: string | null;
 };
 
 export default StateType;
