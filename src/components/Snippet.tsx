@@ -1,8 +1,8 @@
 import React from 'react';
 
-function Snippet({ data }: any) {
+function Snippet({ data, onClick }: any) {
   return (
-    <div>
+    <div onClick={onClick}>
       <div>
         <img
           src={`http://covers.openlibrary.org/b/id/${data['cover_i']}-M.jpg`}
