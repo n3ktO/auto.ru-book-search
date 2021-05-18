@@ -1,11 +1,11 @@
-type InitialStateType = {
+type StateType = {
   query: string;
   books: any[];
   loading: AbortController;
   selectedBook: string;
 };
 
-const initialState: InitialStateType = {
+const initialState: StateType = {
   query: '',
   books: [],
   loading: null,
