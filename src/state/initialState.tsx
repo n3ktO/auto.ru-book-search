@@ -1,9 +1,4 @@
-type StateType = {
-  query: string;
-  books: any[];
-  loading: AbortController;
-  selectedBook: string;
-};
+import StateType from "../types/StateType";
 
 const initialState: StateType = {
   query: '',
