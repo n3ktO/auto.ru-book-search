@@ -1,8 +1,8 @@
 import initialState from "../initialState";
 
 export default function loadingReducer(
-  state: boolean = initialState.loading,
-  { type, loading }: { type: string, loading: boolean }
+  state: AbortController = initialState.loading,
+  { type, loading }: { type: string, loading: AbortController }
 ) {
   switch (type) {
     case "SET_LOADING": {

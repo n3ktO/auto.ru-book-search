@@ -1,14 +1,14 @@
 type InitialStateType = {
   query: string;
   books: any[];
-  loading: boolean;
+  loading: AbortController;
   selectedBook: string;
 };
 
 const initialState: InitialStateType = {
   query: '',
   books: [],
-  loading: false,
+  loading: null,
   selectedBook: null
 };
 
