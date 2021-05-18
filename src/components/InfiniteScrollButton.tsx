@@ -54,7 +54,9 @@ function InfiniteScrollButton() {
       <button
         disabled={!books.length || !!loading || lastPage}
         onClick={() => fetchBooks()}
-      >Загрузить еще</button>
+      >
+        Load more
+      </button>
     </div>
   );
 }
