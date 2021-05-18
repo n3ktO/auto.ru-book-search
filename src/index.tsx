@@ -8,6 +8,10 @@ import store from './state/store';
 import App from './App';
 
 const GlobalStyle = createGlobalStyle`
+  html {
+    font-family: 'Roboto', sans-serif;
+  }
+
   body {
     margin: 0;
   }
