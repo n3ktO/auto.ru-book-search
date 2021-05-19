@@ -1,4 +1,4 @@
-const setLoading = (loading: AbortController) => ({
+const setLoading = (loading: boolean) => ({
   type: 'loading/set',
   loading
 });

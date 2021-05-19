@@ -1,13 +1,22 @@
-import React, { lazy, Suspense } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import React from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
+import styled from 'styled-components';
 
 import StateType from "./types/StateType";
 
 import SearchField from './components/SearchField';
 import BookList from './components/BookList';
 import InfiniteScrollButton from './components/InfiniteScrollButton';
+import BookInfoModal from './components/BookInfoModal';
 
-const BookInfoModal = lazy(() => import('./components/BookInfoModal'));
+const AppContainer = styled.div`
+display: flex;
+justify-content: center;
+`;
+
+const MainContainer = styled.div`
+width: 800px;
+`;
 
 function App() {
   const selectedBook: string = useSelector(
@@ -16,14 +25,14 @@ function App() {
   );
 
   return (
-    <div>
-      <Suspense fallback={<div>Загрузка...</div>}>
+    <AppContainer>
+      <MainContainer>
         {!!selectedBook && <BookInfoModal />}
-      </Suspense>
-      <SearchField />
-      <BookList />
-      <InfiniteScrollButton />
-    </div>
+        <SearchField />
+        <BookList />
+        <InfiniteScrollButton />
+      </MainContainer>
+    </AppContainer>
   );
 }
 

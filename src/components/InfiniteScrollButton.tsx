@@ -23,7 +23,7 @@ function InfiniteScrollButton() {
     shallowEqual
   );
 
-  const loading: AbortController = useSelector(
+  const loading: boolean = useSelector(
     (state: StateType) => state.loading,
     shallowEqual
   );
@@ -31,32 +31,39 @@ function InfiniteScrollButton() {
   const dispatch = useDispatch();
 
   const fetchBooks = useCallback(() => {
-    loading?.abort()
-    dispatch(setLoading(new AbortController()));
+    const abortController: AbortController = new AbortController();
+    dispatch(setLoading(true));
 
     const page: number = (books.length - books.length % limit) / limit + 1;
 
-    fetch(getSearchUrl(query, limit, page), {
-      signal: loading?.signal
-    })
-      .then(res => res.json())
-      .then(data => {
-        dispatch(setLoading(null));
+    (async () => {
+      try {
+        const response = await fetch(getSearchUrl(query, limit, page), {
+          signal: abortController.signal
+        });
+        const data = await response.json();
         dispatch(addBooks(data['docs']));
         setLastPage(data['numFound'] < data['start'] + limit);
-      });
+      } catch (e) {
+        console.log(e);
+      }
+      dispatch(setLoading(false));
+      abortController.abort();
+    })();
   }, [query, books, loading]);
 
-  useEffect(() => setLastPage(false), [query])
+  useEffect(() => setLastPage(false), [query]);
 
   return (
     <div>
-      <button
-        disabled={!books.length || !!loading || lastPage}
-        onClick={() => fetchBooks()}
-      >
-        Load more
-      </button>
+      {!!books.length && (
+        <button
+          disabled={!books.length || !!loading || lastPage}
+          onClick={() => { fetchBooks() }}
+        >
+          Load more
+        </button>
+      )}
     </div>
   );
 }

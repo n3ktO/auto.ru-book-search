@@ -3,7 +3,7 @@ import StateType from '../types/StateType';
 const initialState: StateType = {
   query: '',
   books: [],
-  loading: null,
+  loading: false,
   selectedBook: null
 };
 

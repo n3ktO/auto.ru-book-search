@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import styled from 'styled-components';
 
 import { setQuery } from "../state/actions/queryActions";
 import { setBooks } from "../state/actions/booksActions";
@@ -9,22 +10,87 @@ import getSearchUrl from "../functions/getSearchUrl";
 
 import StateType from "../types/StateType";
 
+const SearchFieldWrapper = styled.div`
+display: flex;
+justify-content: center;
+width: 100%;
+margin-bottom: 16px;
+padding: 16px 0;
+box-sizing: border-box;
+`;
+
+const SearchFieldInput = styled.input`
+width: 100%;
+padding: 8px 16px;
+box-sizing: border-box;
+font-family: 'Roboto', sans-serif;
+font-weight: 400;
+background: #fff;
+border: 2px solid #efdfc6;
+border-top-left-radius: 8px;
+border-bottom-left-radius: 8px;
+font-size: 18px;
+
+&:focus {
+  outline: 0;
+  z-index: 10;
+}
+`;
+
+const SearchFieldButton = styled.button`
+margin-left: -1px;
+padding: 8px 16px;
+box-sizing: border-box;
+font-family: 'Roboto', sans-serif;
+font-weight: 400;
+font-size: 18px;
+border: 0;
+border-top-right-radius: 8px;
+border-bottom-right-radius: 8px;
+background: #efdfc6;
+
+&:hover {
+  background: #f4d7a9;
+  cursor: pointer;
+}
+`;
+
 const limit = 10;
 
 function SearchField() {
   const firstRenderRef = useRef<boolean>(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const query: string = useSelector(
     (state: StateType) => state.query,
     shallowEqual
   );
 
-  const loading: AbortController = useSelector(
+  const loading: boolean = useSelector(
     (state: StateType) => state.loading,
     shallowEqual
   );
 
   const dispatch = useDispatch();
+
+  const fetchBooks = useCallback(() => {
+    dispatch(setLoading(true));
+    abortControllerRef.current = new AbortController();
+    (async () => {
+      try {
+        const response = await fetch(getSearchUrl(query, limit, 1), {
+          signal: abortControllerRef.current.signal
+        });
+        const data = await response.json();
+        dispatch(setBooks(data['docs']));
+      } catch (e) {
+        console.log(e);
+      }
+
+      abortControllerRef.current.abort();
+      dispatch(setLoading(false));
+    })();
+  }, [query]);
 
   useEffect(() => {
     let timeoutId: number;
@@ -34,35 +100,34 @@ function SearchField() {
     } else {
       if (query) {
         timeoutId = window.setTimeout(() => {
-          loading?.abort();
-          dispatch(setLoading(new AbortController()));
-
-          fetch(getSearchUrl(query, limit, 1), {
-            signal: loading?.signal
-          })
-            .then(res => res.json())
-            .then(data => {
-              dispatch(setLoading(null));
-              dispatch(setBooks(data['docs']));
-            });
+          fetchBooks();
         }, 1000);
       } else {
         dispatch(setBooks([]));
       }
     }
 
-    return () => clearTimeout(timeoutId);
+    return () => {
+      abortControllerRef.current?.abort();
+      dispatch(setLoading(false));
+      clearTimeout(timeoutId);
+    }
   }, [query]);
 
   return (
-    <div>
-      <input
+    <SearchFieldWrapper>
+      <SearchFieldInput
         type="text"
         value={query}
-        onChange={event => dispatch(setQuery(event.target.value))}
-        placeholder="Search..."
+        onChange={event => { dispatch(setQuery(event.target.value)) }}
+        placeholder="search book..."
       />
-    </div>
+      <SearchFieldButton
+        onClick={() => { fetchBooks(); }}
+      >
+        search
+      </SearchFieldButton>
+    </SearchFieldWrapper>
   );
 }
 

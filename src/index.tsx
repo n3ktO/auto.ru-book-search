@@ -7,6 +7,8 @@ import store from './state/store';
 
 import App from './App';
 
+const scrollbarWidth = window.innerWidth - document.body.clientWidth + 1;
+
 const GlobalStyle = createGlobalStyle`
   html {
     font-family: 'Roboto', sans-serif;
@@ -14,6 +16,8 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
+    overflow-y: scroll;
+    width: calc(100vw - ${scrollbarWidth}px);
   }
 `;
 
