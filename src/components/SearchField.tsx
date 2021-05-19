@@ -121,6 +121,7 @@ function SearchField() {
         onChange={event => { dispatch(setQuery(event.target.value)) }}
         onKeyPress={event => event.key === 'Enter' && fetchBooks()}
         placeholder='search book...'
+        autoFocus
       />
       <SearchFieldButton
         disabled={loading}
