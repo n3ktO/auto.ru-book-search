@@ -3,7 +3,7 @@
       "target": "es5",
       "jsx": "react",
       "noEmitOnError": true,
-      "noUnusedLocals": false,
+      "noUnusedLocals": true,
       "removeComments": true,
       "noImplicitAny": true,
       "esModuleInterop": true,
@@ -11,5 +11,9 @@
   },
   "exclude": [
       "node_modules"
+  ],
+  "include": [
+    "src/components",
+    "src/custom.d.ts"
   ]
 }

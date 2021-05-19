@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import styled from 'styled-components';
 
-import StateType from "./types/StateType";
+import StateType from './types/StateType';
 
 import SearchField from './components/SearchField';
 import BookList from './components/BookList';
@@ -15,7 +15,9 @@ justify-content: center;
 `;
 
 const MainContainer = styled.div`
-width: 800px;
+width: 100%;
+box-sizing: border-box;
+padding: 8px;
 `;
 
 function App() {

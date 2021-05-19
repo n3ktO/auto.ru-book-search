@@ -2,20 +2,19 @@ import React, { useRef, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import styled from 'styled-components';
 
-import { setQuery } from "../state/actions/queryActions";
-import { setBooks } from "../state/actions/booksActions";
-import { setLoading } from "../state/actions/loadingActions";
+import { setQuery } from '../state/actions/queryActions';
+import { setBooks } from '../state/actions/booksActions';
+import { setLoading } from '../state/actions/loadingActions';
 
-import getSearchUrl from "../functions/getSearchUrl";
+import getSearchUrl from '../functions/getSearchUrl';
 
-import StateType from "../types/StateType";
+import StateType from '../types/StateType';
 
 const SearchFieldWrapper = styled.div`
 display: flex;
 justify-content: center;
 width: 100%;
 margin-bottom: 16px;
-padding: 16px 0;
 box-sizing: border-box;
 `;
 
@@ -26,7 +25,7 @@ box-sizing: border-box;
 font-family: 'Roboto', sans-serif;
 font-weight: 400;
 background: #fff;
-border: 2px solid #efdfc6;
+border: 4px solid #efdfc6;
 border-top-left-radius: 8px;
 border-bottom-left-radius: 8px;
 font-size: 18px;
@@ -117,12 +116,13 @@ function SearchField() {
   return (
     <SearchFieldWrapper>
       <SearchFieldInput
-        type="text"
+        type='text'
         value={query}
         onChange={event => { dispatch(setQuery(event.target.value)) }}
-        placeholder="search book..."
+        placeholder='search book...'
       />
       <SearchFieldButton
+        disabled={loading}
         onClick={() => { fetchBooks(); }}
       >
         search

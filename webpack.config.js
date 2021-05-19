@@ -11,11 +11,11 @@ module.exports = (env) => ({
     filename: '[name].bundle.js',
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   devtool: env === 'development' ? 'inline-source-map' : false,
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    contentBase: path.join(__dirname, 'dist'),
     compress: true,
     watchContentBase: true,
     progress: true,

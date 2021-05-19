@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const SnippetWrapper = styled.div`
@@ -8,8 +8,12 @@ padding: 16px 24px;
 box-sizing: border-box;
 display: flex;
 align-items: center;
-border: 2px solid #efdfc6;
+border: 4px solid #efdfc6;
 border-radius: 16px;
+
+&:hover {
+  cursor: pointer;
+}
 `;
 
 const CoverWrapper = styled.div`
@@ -19,9 +23,6 @@ border-radius: 16px;
 display: flex;
 align-items: center;
 
-&:hover {
-  cursor: pointer;
-}
 `;
 
 const Cover = styled.img`
@@ -36,9 +37,8 @@ const BookTitle = styled.div`
 font-size: 24px;
 font-weight: 500;
 
-&:hover {
-  color: #d7b47d;
-  cursor: pointer;
+@media screen and (max-width: 480px) {
+  font-size: 20px;
 }
 `;
 
@@ -55,18 +55,17 @@ font-weight: 300;
 
 function Snippet({ data, onClick }: any) {
   return (
-    <SnippetWrapper>
+    <SnippetWrapper onClick={onClick}>
       <CoverWrapper>
         <Cover
           src={data['cover_i'] ?
             `http://covers.openlibrary.org/b/id/${data['cover_i']}-M.jpg` :
             'https://openlibrary.org/images/icons/avatar_book-sm.png'
           }
-          onClick={onClick}
         />
       </CoverWrapper>
       <BookData>
-        <BookTitle onClick={onClick}>{data['title']}</BookTitle>
+        <BookTitle>{data['title']}</BookTitle>
         {data['author_name'] && (
           <BookAuthor>by {data['author_name']}</BookAuthor>
         )}
