@@ -14,6 +14,7 @@
     "@types/react-dom": "^17.0.5",
     "@types/react-redux": "^7.1.16",
     "@types/styled-components": "^5.1.9",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
     "ts-loader": "^9.1.2",
     "typescript": "^4.2.4",

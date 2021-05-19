@@ -29,7 +29,10 @@ module.exports = (env) => ({
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
         use: ['ts-loader']
-      }
+      }, {
+        test: /\.(png|jpe?g|svg|gif)$/i,
+        use: ['file-loader']
+      },
     ]
   },
   plugins: [
