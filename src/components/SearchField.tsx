@@ -119,6 +119,7 @@ function SearchField() {
         type='text'
         value={query}
         onChange={event => { dispatch(setQuery(event.target.value)) }}
+        onKeyPress={event => event.key === 'Enter' && fetchBooks()}
         placeholder='search book...'
       />
       <SearchFieldButton
