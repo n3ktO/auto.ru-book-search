@@ -2,12 +2,12 @@ import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import styled from 'styled-components';
 
-import StateType from './types/StateType';
-
 import SearchField from './components/SearchField';
 import BookList from './components/BookList';
 import InfiniteScrollButton from './components/InfiniteScrollButton';
 import BookInfoModal from './components/BookInfoModal';
+
+import StateType from './types/StateType';
 
 const AppContainer = styled.div`
 display: flex;

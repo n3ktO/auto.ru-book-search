@@ -27,7 +27,7 @@ margin-bottom: 16px;
 }
 `;
 
-const limit = 10;
+const limit: number = 10;
 
 function InfiniteScrollButton() {
   const [lastPage, setLastPage] = useState(false);

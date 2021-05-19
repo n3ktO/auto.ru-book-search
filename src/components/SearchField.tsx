@@ -54,7 +54,7 @@ background: #efdfc6;
 }
 `;
 
-const limit = 10;
+const limit: number = 10;
 
 function SearchField() {
   const firstRenderRef = useRef<boolean>(false);
