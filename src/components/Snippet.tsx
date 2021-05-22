@@ -24,7 +24,6 @@ margin-right: 32px;
 border-radius: 16px;
 display: flex;
 align-items: center;
-
 `;
 
 const Cover = styled.img`
