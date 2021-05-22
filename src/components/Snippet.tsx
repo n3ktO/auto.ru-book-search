@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import getCover from "../functions/getCover";
+
 const SnippetWrapper = styled.div`
 width: 100%;
 margin-bottom: 16px;
@@ -57,12 +59,7 @@ function Snippet({ data, onClick }: any) {
   return (
     <SnippetWrapper onClick={onClick}>
       <CoverWrapper>
-        <Cover
-          src={data['cover_i'] ?
-            `http://covers.openlibrary.org/b/id/${data['cover_i']}-M.jpg` :
-            'https://openlibrary.org/images/icons/avatar_book-sm.png'
-          }
-        />
+        <Cover src={getCover(data['cover_i'], 'medium')} />
       </CoverWrapper>
       <BookData>
         <BookTitle>{data['title']}</BookTitle>

@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import StateType from '../types/StateType';
 
 import { setSelectedBook } from '../state/actions/selectedBookActions';
+
+import getCover from "../functions/getCover";
 
 import closeIcon from '../assets/closeIcon.svg';
 
@@ -128,13 +130,6 @@ font-size: 18px;
 font-weight: 300;
 `;
 
-function getLargeCover(coverId: string) {
-  if (coverId) {
-    return `http://covers.openlibrary.org/b/id/${coverId}-L.jpg`;
-  }
-  return 'https://openlibrary.org/images/icons/avatar_book-lg.png';
-}
-
 function BookInfoModal() {
   const selectedBook: any = useSelector(
     (state: StateType) => state.selectedBook,
@@ -151,23 +146,21 @@ function BookInfoModal() {
     }
   }, [])
 
+  const closeModal = useCallback(event => {
+    if (event.target === event.currentTarget) {
+      dispatch(setSelectedBook(null));
+    }
+  }, []);
+
   return (
-    <ModalWrapper onClick={(e) => {
-      if (e.target === e.currentTarget) {
-        dispatch(setSelectedBook(null));
-      }
-    }}>
+    <ModalWrapper onClick={closeModal}>
       <Modal>
         <CloseButton
           src={closeIcon}
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              dispatch(setSelectedBook(null));
-            }
-          }}
+          onClick={closeModal}
         />
         <CoverWrapper>
-          <Cover src={getLargeCover(selectedBook['cover_i'])} />
+          <Cover src={getCover(selectedBook['cover_i'], 'large')} />
         </CoverWrapper>
         <BookData>
           <BookMainData>

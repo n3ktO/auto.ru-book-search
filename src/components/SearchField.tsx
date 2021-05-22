@@ -85,8 +85,6 @@ function SearchField() {
       } catch (e) {
         console.log(e);
       }
-
-      abortControllerRef.current.abort();
       dispatch(setLoading(false));
     })();
   }, [query]);
@@ -125,7 +123,7 @@ function SearchField() {
       />
       <SearchFieldButton
         disabled={loading}
-        onClick={() => { fetchBooks(); }}
+        onClick={fetchBooks}
       >
         search
       </SearchFieldButton>

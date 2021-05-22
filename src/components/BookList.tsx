@@ -58,7 +58,7 @@ function BookList() {
         <Snippet
           key={index}
           data={book}
-          onClick={() => { dispatch(setSelectedBook(book)) }}
+          onClick={() => dispatch(setSelectedBook(book))}
         />
       ))}
     </BookListWrapper>
