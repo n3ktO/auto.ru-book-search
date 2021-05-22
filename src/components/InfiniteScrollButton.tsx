@@ -67,18 +67,17 @@ function InfiniteScrollButton() {
         console.log(e);
       }
       dispatch(setLoading(false));
-      abortController.abort();
     })();
   }, [query, books, loading]);
 
-  useEffect(() => { setLastPage(false) }, [query]);
+  useEffect(() => setLastPage(false), [query]);
 
   return (
     <div>
       {!!books.length && (
         <LoadingButton
           disabled={!books.length || !!loading || lastPage}
-          onClick={() => { fetchBooks() }}
+          onClick={fetchBooks}
         >
           load more...
         </LoadingButton>
